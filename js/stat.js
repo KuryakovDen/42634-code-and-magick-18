@@ -20,7 +20,19 @@ var renderCloud = function (ctx, x, y, color) {
   ctx.fillRect(x, y, CLOUD_WIDTH, CLOUD_HEIGHT);
 };
 
-window.renderStatistics = function (ctx) {
+var getMaxArrayValue = function (arr) {
+  var maxValue = arr[0];
+
+  for (var i = 1; i < arr.length; i++) {
+    if (arr[i] > maxValue) {
+      maxValue = arr[i];
+    }
+  }
+
+  return maxValue;
+};
+
+window.renderStatistics = function (ctx, players, times) {
   renderCloud(ctx, 110, 20, 'rgba(0, 0, 0, 0.7)');
   renderCloud(ctx, 100, 10, '#fff');
 
@@ -29,13 +41,19 @@ window.renderStatistics = function (ctx) {
   ctx.fillText('Ура вы победили!', 130, 50);
   ctx.fillText('Список результатов:', 130, 70);
 
-  var players = ['Вы', 'Ваня', 'Аня', 'Кекс'];
+  var maxTime = getMaxArrayValue(times);
 
   for (var i = 0; i < players.length; i++) {
-    ctx.fillText(players[i], START_GAP + (TEXT_GAP * i), textHeight);
-    ctx.fillRect(START_GAP + (CLOUD_X * i), heightY, barWidth, BAR_HEIGHT);
+    //   MAX_BAR      BAR[I]
+    // ----------- = --------
+    //  BAR_WIDTH       X
 
-    /* ctx.fillStyle = i > 0 ? 'hsl(240,' + 100 * Math.random() + '%' + ', 50%)' : 'rgba(255, 0, 0, 1)';*/
+    //  X = (BAR_WIDTH * BAR[I]) / MAX_BAR
+
+    ctx.fillText(players[i], START_GAP + (TEXT_GAP * i), textHeight);
+    ctx.fillRect(START_GAP + (CLOUD_X * i), heightY, barWidth, (BAR_HEIGHT * times[i]) / maxTime);
+
     ctx.fillStyle = 'hsl(240,' + 100 * Math.random() + '%' + ', 50%)';
   }
 };
+
