@@ -37,8 +37,8 @@ window.renderStatistics = function (ctx, players, times) {
 
   ctx.fillStyle = 'rgba(255, 0, 0, 1)';
   ctx.font = '16px PT Mono';
-  ctx.fillText('Ура вы победили!', 130, 50);
-  ctx.fillText('Список результатов:', 130, 70);
+  ctx.fillText('Ура вы победили!', 130, 40);
+  ctx.fillText('Список результатов:', 130, 60);
 
   var maxTime = getMaxArrayValue(times);
 
@@ -49,9 +49,9 @@ window.renderStatistics = function (ctx, players, times) {
 
     //  X = (BAR_WIDTH * BAR[I]) / MAX_BAR
 
-    // ctx.fillText(players[i], START_GAP + (TEXT_GAP * i), textHeight);
+    ctx.fillText(players[i], START_GAP + (TEXT_GAP * i), textHeight);
     ctx.fillRect(START_GAP + (CLOUD_X * i), CLOUD_HEIGHT - 30 - ((BAR_HEIGHT * times[i]) / maxTime), barWidth, (BAR_HEIGHT * times[i]) / maxTime);
-    ctx.fillText(Math.round(times[i]), START_GAP + (TEXT_GAP * i), textHeight);
+    ctx.fillText(Math.round(times[i]), START_GAP + (TEXT_GAP * i), CLOUD_HEIGHT - 40 - ((BAR_HEIGHT * times[i]) / maxTime));
 
     ctx.fillStyle = 'hsl(240,' + 100 * Math.random() + '%' + ', 50%)';
   }
