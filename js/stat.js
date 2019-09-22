@@ -49,11 +49,11 @@ window.renderStatistics = function (ctx, players, times) {
 
     //  X = (BAR_WIDTH * BAR[I]) / MAX_BAR
 
-    ctx.fillText(players[i], START_GAP + (TEXT_GAP * i), textHeight);
-    ctx.fillRect(START_GAP + (CLOUD_X * i), CLOUD_HEIGHT - 30 - ((BAR_HEIGHT * times[i]) / maxTime), barWidth, (BAR_HEIGHT * times[i]) / maxTime);
-    ctx.fillText(Math.round(times[i]), START_GAP + (TEXT_GAP * i), CLOUD_HEIGHT - 40 - ((BAR_HEIGHT * times[i]) / maxTime));
+    ctx.fillText(players[i], START_GAP + (TEXT_GAP * i), textHeight); // Info about player's names
+    ctx.fillRect(START_GAP + (CLOUD_X * i), CLOUD_HEIGHT - 30 - ((BAR_HEIGHT * times[i]) / maxTime), barWidth, (BAR_HEIGHT * times[i]) / maxTime); // Creating columns for the bar graph
+    ctx.fillText(Math.round(times[i]), START_GAP + (TEXT_GAP * i), CLOUD_HEIGHT - 40 - ((BAR_HEIGHT * times[i]) / maxTime)); // Info about player's points
 
-    ctx.fillStyle = 'hsl(240,' + 100 * Math.random() + '%' + ', 50%)';
+    ctx.fillStyle = 'hsl(240,' + 100 * Math.random() + '%' + ', 50%)'; // Creating random saturation for the color of another player's columns
   }
 };
 
