@@ -10,9 +10,16 @@ var FONT_GAP = 170;
 var TEXT_GAP = 100;
 var TEXT_WIDTH = 30;
 var BAR_HEIGHT = 140;
+var PERCENT = 100;
+var COLUMN_INDENT = 30;
+var POINTS_INDENT = 40;
 
 var barWidth = GAP + TEXT_WIDTH;
 var textHeight = CLOUD_Y + GAP + FONT_GAP;
+var winnerMessage = 'Ура вы победили!';
+var resultsList = 'Список результатов';
+var textFont = '16px PT Mono';
+var defaultColumnColor = 'rgba(255, 0, 0, 1)';
 
 var renderCloud = function (ctx, x, y, color) {
   ctx.fillStyle = color;
@@ -32,13 +39,13 @@ var getMaxArrayValue = function (arr) {
 };
 
 window.renderStatistics = function (ctx, players, times) {
-  renderCloud(ctx, 110, 20, 'rgba(0, 0, 0, 0.7)');
-  renderCloud(ctx, 100, 10, '#fff');
+  renderCloud(ctx, 120, 20, 'rgba(0, 0, 0, 0.7)');
+  renderCloud(ctx, 110, 10, '#fff');
 
-  ctx.fillStyle = 'rgba(255, 0, 0, 1)';
-  ctx.font = '16px PT Mono';
-  ctx.fillText('Ура вы победили!', 130, 40);
-  ctx.fillText('Список результатов:', 130, 60);
+  ctx.fillStyle = defaultColumnColor;
+  ctx.font = textFont;
+  ctx.fillText(winnerMessage, 130, 40);
+  ctx.fillText(resultsList, 130, 60);
 
   var maxTime = getMaxArrayValue(times);
 
@@ -49,11 +56,26 @@ window.renderStatistics = function (ctx, players, times) {
 
     //  X = (BAR_WIDTH * BAR[I]) / MAX_BAR
 
-    ctx.fillText(players[i], START_GAP + (TEXT_GAP * i), textHeight); // Info about player's names
-    ctx.fillRect(START_GAP + (CLOUD_X * i), CLOUD_HEIGHT - 30 - ((BAR_HEIGHT * times[i]) / maxTime), barWidth, (BAR_HEIGHT * times[i]) / maxTime); // Creating columns for the bar graph
-    ctx.fillText(Math.round(times[i]), START_GAP + (TEXT_GAP * i), CLOUD_HEIGHT - 40 - ((BAR_HEIGHT * times[i]) / maxTime)); // Info about player's points
+    var createPlayerNames = function () {
+      ctx.fillText(players[i], START_GAP + (TEXT_GAP * i), textHeight);
+    };
 
-    ctx.fillStyle = 'hsl(240,' + 100 * Math.random() + '%' + ', 50%)'; // Creating random saturation for the color of another player's columns
+    var createColumns = function () {
+      ctx.fillRect(START_GAP + (CLOUD_X * i), CLOUD_HEIGHT - COLUMN_INDENT - ((BAR_HEIGHT * times[i]) / maxTime), barWidth, (BAR_HEIGHT * times[i]) / maxTime);
+    };
+
+    var calculatePlayerPoints = function () {
+      ctx.fillText(Math.round(times[i]), START_GAP + (TEXT_GAP * i), CLOUD_HEIGHT - POINTS_INDENT - ((BAR_HEIGHT * times[i]) / maxTime));
+    };
+
+    var createRandomSaturation = function () {
+      ctx.fillStyle = 'hsl(240,' + PERCENT * Math.random() + '%' + ', 50%)';
+    };
+
+    createPlayerNames();
+    createColumns();
+    calculatePlayerPoints();
+    createRandomSaturation();
   }
 };
 
