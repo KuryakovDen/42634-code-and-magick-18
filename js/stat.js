@@ -10,7 +10,6 @@ var FONT_GAP = 170;
 var TEXT_GAP = 100;
 var TEXT_WIDTH = 30;
 var BAR_HEIGHT = 140;
-var PERCENT = 100;
 var COLUMN_INDENT = 30;
 var POINTS_INDENT = 40;
 
@@ -49,6 +48,22 @@ window.renderStatistics = function (ctx, players, times) {
 
   var maxTime = getMaxArrayValue(times);
 
+  var createPlayerNames = function (array, i) {
+    ctx.fillText(players[i], START_GAP + (TEXT_GAP * i), textHeight);
+  };
+
+  var createColumns = function (array, i) {
+    ctx.fillRect(START_GAP + (CLOUD_X * i), CLOUD_HEIGHT - COLUMN_INDENT - ((BAR_HEIGHT * times[i]) / maxTime), barWidth, (BAR_HEIGHT * times[i]) / maxTime);
+  };
+
+  var calculatePlayerPoints = function (array, i) {
+    ctx.fillText(Math.round(times[i]), START_GAP + (TEXT_GAP * i), CLOUD_HEIGHT - POINTS_INDENT - ((BAR_HEIGHT * times[i]) / maxTime));
+  };
+
+  var createRandomSaturation = function (colorVariable, percent, colorLightness) {
+    ctx.fillStyle = 'hsl(' + colorVariable + ',' + percent * Math.random() + '%' + ',' + colorLightness + '%)';
+  };
+
   for (var i = 0; i < players.length; i++) {
     //   MAX_BAR      BAR[I]
     // ----------- = --------
@@ -56,26 +71,10 @@ window.renderStatistics = function (ctx, players, times) {
 
     //  X = (BAR_WIDTH * BAR[I]) / MAX_BAR
 
-    var createPlayerNames = function () {
-      ctx.fillText(players[i], START_GAP + (TEXT_GAP * i), textHeight);
-    };
-
-    var createColumns = function () {
-      ctx.fillRect(START_GAP + (CLOUD_X * i), CLOUD_HEIGHT - COLUMN_INDENT - ((BAR_HEIGHT * times[i]) / maxTime), barWidth, (BAR_HEIGHT * times[i]) / maxTime);
-    };
-
-    var calculatePlayerPoints = function () {
-      ctx.fillText(Math.round(times[i]), START_GAP + (TEXT_GAP * i), CLOUD_HEIGHT - POINTS_INDENT - ((BAR_HEIGHT * times[i]) / maxTime));
-    };
-
-    var createRandomSaturation = function () {
-      ctx.fillStyle = 'hsl(240,' + PERCENT * Math.random() + '%' + ', 50%)';
-    };
-
-    createPlayerNames();
-    createColumns();
-    calculatePlayerPoints();
-    createRandomSaturation();
+    createPlayerNames(players, i);
+    createColumns(times, i);
+    calculatePlayerPoints(times, i);
+    createRandomSaturation(240, 100, 50);
   }
 };
 
