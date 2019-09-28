@@ -11,8 +11,33 @@ var getRandomElement  = function (array) {
   return randomElement;
 }
 
-var consoleItem = getRandomElement(names);
-console.log(consoleItem);
+var getRandomFullname = function (firstArray, secondArray) {
+  var wirardFullname = getRandomElement(firstArray) + ' ' + getRandomElement(secondArray);
+  return wirardFullname;
+}
+
+var wirardFullname = getRandomFullname(names, lastnames);
+console.log(wirardFullname);
+
+/*
+var wizads = [{
+    name: '',
+    coatColor: '',
+    eyesColor: ''
+  }, {
+    name: '',
+    coatColor: '',
+    eyesColor: ''
+  }, {
+    name: '',
+    coatColor: '',
+    eyesColor: ''
+  }, {
+    name: '',
+    coatColor: '',
+    eyesColor: ''
+  }];
+  */
 
 var gamePopup = document.querySelector('.setup');
 gamePopup.classList.remove('hidden');
