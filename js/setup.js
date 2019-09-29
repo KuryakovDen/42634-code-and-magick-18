@@ -1,4 +1,5 @@
 'use strict';
+/* eslint no-console: 0*/
 
 var names = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
 var lastnames = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
@@ -16,9 +17,9 @@ var getRandomFullname = function (firstArray, secondArray) {
   return wirardFullname;
 };
 
-var createRandomObjects = function (objectsCount) {
-  var arrayData = [];
+var arrayData = [];
 
+var createRandomObjects = function (objectsCount) {
   for (var i = 0; i < objectsCount; i++) {
     var objectData = {
       name: getRandomFullname(names, lastnames),
@@ -33,13 +34,7 @@ var createRandomObjects = function (objectsCount) {
 };
 
 var testData = createRandomObjects(4);
-
-/* var wizardName = getRandomElement(names);
-var wizardLastName = getRandomElement(lastnames);
-var wizardCoatColor = getRandomElement(coatColors);
-var wizardEyeColor = getRandomElement(eyesColors);
-var wirardFullname = getRandomFullname(names, lastnames);*/
-
+console.log(testData);
 
 var gamePopup = document.querySelector('.setup');
 gamePopup.classList.remove('hidden');
@@ -49,10 +44,12 @@ document.querySelector('.setup-similar').classList.remove('hidden');
 var similarCharacters = document.querySelector('.setup-similar-list');
 var similarWirardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
 
-for (var i = 0; i<randomNames.length; i++) {
+for (var i = 0; i < arrayData.length; i++) {
   var wizardElement = similarWirardTemplate.cloneNode(true);
 
-  wizardElement.querySelector('.setup-similar-label').textContent = randomNames[i];
+  wizardElement.querySelector('.setup-similar-label').textContent = arrayData[i].name;
+  wizardElement.querySelector('.wizard-coat').style.fill = arrayData[i].coatColor;
+  wizardElement.querySelector('.wizard-eyes').style.fill = arrayData[i].eyesColor;
 
   similarCharacters.appendChild(wizardElement);
 }
