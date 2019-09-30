@@ -31,13 +31,20 @@ var createRandomWizards = function (wizardsCount) {
 
 var wizards = createRandomWizards(4);
 
-var gamePopup = document.querySelector('.setup');
-gamePopup.classList.remove('hidden');
+var findCurrentGameElement = function (className) {
+  return document.querySelector(className);
+};
 
-document.querySelector('.setup-similar').classList.remove('hidden');
+var showGameElement = function (className) {
+  return document.querySelector(className).classList.remove('hidden');
+};
 
-var similarCharacters = document.querySelector('.setup-similar-list');
-var similarWirardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
+showGameElement('.setup');
+
+showGameElement('.setup-similar');
+
+var similarCharacters = findCurrentGameElement('.setup-similar-list');
+var similarWirardTemplate = findCurrentGameElement('#similar-wizard-template').content.querySelector('.setup-similar-item');
 
 for (var i = 0; i < wizards.length; i++) {
   var wizardElement = similarWirardTemplate.cloneNode(true);
