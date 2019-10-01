@@ -35,23 +35,32 @@ var findCurrentGameElement = function (className) {
   return document.querySelector(className);
 };
 
-var showGameElement = function (className) {
+var showGamePopup = function (className) {
   return document.querySelector(className).classList.remove('hidden');
 };
 
-showGameElement('.setup');
+showGamePopup('.setup');
+showGamePopup('.setup-similar');
 
-showGameElement('.setup-similar');
+var createRandomWizardLook = function (array) {
+  var similarCharacters = findCurrentGameElement('.setup-similar-list');
+  var similarWirardTemplate = findCurrentGameElement('#similar-wizard-template').content.querySelector('.setup-similar-item');
 
-var similarCharacters = findCurrentGameElement('.setup-similar-list');
-var similarWirardTemplate = findCurrentGameElement('#similar-wizard-template').content.querySelector('.setup-similar-item');
+  for (var i = 0; i < array.length; i++) {
+    var wizardElement = similarWirardTemplate.cloneNode(true);
 
-for (var i = 0; i < wizards.length; i++) {
-  var wizardElement = similarWirardTemplate.cloneNode(true);
+    var getRandomCLothesElement = function (className) {
+      return wizardElement.querySelector(className);
+    };
 
-  wizardElement.querySelector('.setup-similar-label').textContent = wizards[i].name;
-  wizardElement.querySelector('.wizard-coat').style.fill = wizards[i].coatColor;
-  wizardElement.querySelector('.wizard-eyes').style.fill = wizards[i].eyesColor;
+    getRandomCLothesElement('.setup-similar-label').textContent = array[i].name;
+    getRandomCLothesElement('.wizard-coat').style.fill = array[i].coatColor;
+    getRandomCLothesElement('.wizard-eyes').style.fill = array[i].eyesColor;
 
-  similarCharacters.appendChild(wizardElement);
-}
+    similarCharacters.appendChild(wizardElement);
+  }
+
+  return array;
+};
+
+createRandomWizardLook(wizards);
