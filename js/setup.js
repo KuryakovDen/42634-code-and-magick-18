@@ -94,3 +94,9 @@ getSetupCloseWindow().addEventListener('click', function () {
 getSetupOpenWindow().addEventListener('click', function () {
   modalWindow.classList.remove('hidden');
 });
+
+document.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === 27) {
+    modalWindow.classList.add('hidden');
+  }
+});
