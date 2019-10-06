@@ -37,12 +37,11 @@ var getSetupSimilarList = function () {
   return document.querySelector('.setup-similar');
 };
 
-var getSetupWindow = function () {
-  return document.querySelector('.setup');
-};
+var modalWindow = document.querySelector('.setup');
+
 
 getSetupSimilarList().classList.remove('hidden');
-getSetupWindow().classList.remove('hidden');
+modalWindow.classList.remove('hidden');
 
 var createRandomWizardLook = function (wizardsArray) {
   var similarCharacters = function () {
@@ -79,3 +78,19 @@ var createRandomWizardLook = function (wizardsArray) {
 };
 
 createRandomWizardLook(wizards);
+
+var getSetupOpenWindow = function () {
+  return document.querySelector('.setup-open');
+};
+
+var getSetupCloseWindow = function () {
+  return modalWindow.querySelector('.setup-close');
+};
+
+getSetupCloseWindow().addEventListener('click', function () {
+  modalWindow.classList.add('hidden');
+});
+
+getSetupOpenWindow().addEventListener('click', function () {
+  modalWindow.classList.remove('hidden');
+});
