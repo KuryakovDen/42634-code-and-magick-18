@@ -87,6 +87,10 @@ var getSetupCloseWindow = function () {
   return modalWindow.querySelector('.setup-close');
 };
 
+var getGameIcon = function () {
+  return document.querySelector('.setup-open-icon');
+};
+
 getSetupCloseWindow().addEventListener('click', function () {
   modalWindow.classList.add('hidden');
 });
@@ -98,5 +102,9 @@ getSetupOpenWindow().addEventListener('click', function () {
 document.addEventListener('keydown', function (evt) {
   if (evt.keyCode === 27) {
     modalWindow.classList.add('hidden');
+  } else if (evt.keyCode === 13) {
+    modalWindow.classList.remove('hidden');
   }
 });
+
+getGameIcon().setAttribute('tabindex', 0);
