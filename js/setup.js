@@ -94,6 +94,20 @@ var getSetupCloseWindow = function () {
   return modalWindow.querySelector('.setup-close');
 };
 
+var openPopup = function () {
+  modalWindow.classList.remove('hidden');
+
+  document.addEventListener('keydown', function (evt) {
+    if (evt.keyCode === ESC_KEYCODE) {
+      closePopup();
+    };
+  });
+};
+
+var closePopup = function () {
+  modalWindow.classList.add('hidden');
+};
+
 getSetupUserName().addEventListener('invalid', function (evt) {
   if (getSetupUserName().validity.tooShort) {
     getSetupUserName().setCustomValidity('Имя персонажа не должно быть короче 2 символов');
@@ -116,27 +130,21 @@ getSetupUserName().addEventListener('input', function (evt) {
 });
 
 getSetupOpenWindow().addEventListener('click', function () {
-  modalWindow.classList.remove('hidden');
-
-  document.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === ESC_KEYCODE) {
-      modalWindow.classList.add('hidden');
-    };
-  });
+  openPopup();
 });
 
 getSetupOpenWindow().addEventListener('keydown', function (evt) {
   if (evt.keyCode === ENTER_KEYCODE) {
-    modalWindow.classList.remove('hidden');
+    openPopup();
   };
 });
 
 getSetupCloseWindow().addEventListener('click', function () {
-  modalWindow.classList.add('hidden');
+  closePopup();
 });
 
 getSetupCloseWindow().addEventListener('keydown', function (evt) {
   if (evt.keyCode === ENTER_KEYCODE) {
-    modalWindow.classList.add('hidden');
+    closePopup();
   };
 });
