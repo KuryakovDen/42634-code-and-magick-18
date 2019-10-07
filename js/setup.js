@@ -4,6 +4,7 @@ var wizardNames = ['Иван', 'Хуан Себастьян', 'Мария', 'К�
 var wizardLastnames = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
 var coatColors = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
 var eyesColors = ['black', 'red', 'blue', 'yellow', 'green'];
+var fireballColors = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
 
 var countOfWizards = 4;
 
@@ -39,11 +40,7 @@ var getSetupSimilarList = function () {
   return document.querySelector('.setup-similar');
 };
 
-var modalWindow = document.querySelector('.setup');
-
-
 getSetupSimilarList().classList.remove('hidden');
-// modalWindow.classList.remove('hidden');
 
 var createRandomWizardLook = function (wizardsArray) {
   var similarCharacters = function () {
@@ -83,6 +80,12 @@ createRandomWizardLook(wizards);
 
 // Events
 
+var modalWindow = document.querySelector('.setup');
+
+var getSetupUserName = function () {
+  return modalWindow.querySelector('.setup-user-name');
+};
+
 var getSetupOpenWindow = function () {
   return document.querySelector('.setup-open');
 };
@@ -91,19 +94,32 @@ var getSetupCloseWindow = function () {
   return modalWindow.querySelector('.setup-close');
 };
 
+getSetupUserName().addEventListener('invalid', function (evt) {
+  if (getSetupUserName().validity.tooShort) {
+    getSetupUserName().setCustomValidity('Имя персонажа не должно быть короче 2 символов');
+  } else if (getSetupUserName().validity.tooLong) {
+    getSetupUserName().setCustomValidity('Имя персонажа не должно быть длиннее 25 символов');
+  } else if (getSetupUserName().validity.valueMissing) {
+    getSetupUserName().setCustomValidity('Это поле обязательно для заполнения!');
+  } else {
+    getSetupUserName().setCustomValidity('');
+  }
+});
+
+getSetupUserName().addEventListener('input', function (evt) {
+  var target = evt.target;
+  if (target.value.length < 2) {
+    target.setCustomValidity('Имя персонажа не должно быть короче 2 символов');
+  } else {
+    target.setCustomValidity('');
+  }
+});
+
 getSetupOpenWindow().addEventListener('click', function () {
   modalWindow.classList.remove('hidden');
 });
 
 getSetupCloseWindow().addEventListener('click', function () {
   modalWindow.classList.add('hidden');
-});
-
-document.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === ENTER_KEYCODE) {
-    modalWindow.classList.add('hidden');
-  } else if (evt.keyCode === ESC_KEYCODE) {
-    modalWindow.classList.remove('hidden');
-  }
 });
 
