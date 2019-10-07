@@ -8,8 +8,8 @@ var fireballColors = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
 
 var countOfWizards = 4;
 
-var ESC_KEYCODE = 13;
-var ENTER_KEYCODE = 27;
+var ESC_KEYCODE = 27;
+var ENTER_KEYCODE = 13;
 
 var getRandomElement = function (wizards) {
   var randomIndex = Math.floor(Math.random() * wizards.length);
@@ -117,9 +117,26 @@ getSetupUserName().addEventListener('input', function (evt) {
 
 getSetupOpenWindow().addEventListener('click', function () {
   modalWindow.classList.remove('hidden');
+
+  document.addEventListener('keydown', function (evt) {
+    if (evt.keyCode === ESC_KEYCODE) {
+      modalWindow.classList.add('hidden');
+    };
+  });
+});
+
+getSetupOpenWindow().addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    modalWindow.classList.remove('hidden');
+  };
 });
 
 getSetupCloseWindow().addEventListener('click', function () {
   modalWindow.classList.add('hidden');
 });
 
+getSetupCloseWindow().addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    modalWindow.classList.add('hidden');
+  };
+});
