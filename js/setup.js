@@ -94,21 +94,23 @@ var getSetupCloseWindow = function () {
   return modalWindow.querySelector('.setup-close');
 };
 
+var popupEscHandler = function (evt) {
+  if (evt.keyCode === ESC_KEYCODE) {
+    closePopup();
+  }
+};
+
 var openPopup = function () {
   modalWindow.classList.remove('hidden');
 
-  document.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === ESC_KEYCODE) {
-      closePopup();
-    };
-  });
+  document.addEventListener('keydown', popupEscHandler);
 };
 
 var closePopup = function () {
   modalWindow.classList.add('hidden');
 };
 
-getSetupUserName().addEventListener('invalid', function (evt) {
+getSetupUserName().addEventListener('invalid', function () {
   if (getSetupUserName().validity.tooShort) {
     getSetupUserName().setCustomValidity('Имя персонажа не должно быть короче 2 символов');
   } else if (getSetupUserName().validity.tooLong) {
@@ -136,7 +138,7 @@ getSetupOpenWindow().addEventListener('click', function () {
 getSetupOpenWindow().addEventListener('keydown', function (evt) {
   if (evt.keyCode === ENTER_KEYCODE) {
     openPopup();
-  };
+  }
 });
 
 getSetupCloseWindow().addEventListener('click', function () {
@@ -146,5 +148,35 @@ getSetupCloseWindow().addEventListener('click', function () {
 getSetupCloseWindow().addEventListener('keydown', function (evt) {
   if (evt.keyCode === ENTER_KEYCODE) {
     closePopup();
-  };
+  }
+});
+
+var getRandomColorCoat = getRandomElement(coatColors);
+var getRandomColorEyes = getRandomElement(eyesColors);
+var getRandomColorWireball = getRandomElement(fireballColors);
+
+var getSetupMainWizard = document.querySelector('.setup-wizard');
+
+var getColorMainWizardCoat = function () {
+  return getSetupMainWizard.querySelector('.wizard-coat');
+};
+
+var getSetupMainWizardEyes = function () {
+  return getSetupMainWizard.querySelector('.wizard-eyes');
+};
+
+var getSetupWireballColor = function () {
+  return document.querySelector('.setup-fireball-wrap');
+};
+
+getColorMainWizardCoat().addEventListener('click', function () {
+  getColorMainWizardCoat().style.fill = getRandomColorCoat;
+});
+
+getSetupMainWizardEyes().addEventListener('click', function () {
+  getSetupMainWizardEyes().style.fill = getRandomColorEyes;
+});
+
+getSetupWireballColor().addEventListener('click', function () {
+  getSetupWireballColor().style.background = getRandomColorWireball;
 });
