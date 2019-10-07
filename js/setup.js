@@ -7,6 +7,8 @@ var eyesColors = ['black', 'red', 'blue', 'yellow', 'green'];
 
 var countOfWizards = 4;
 
+var ESC_KEYCODE = 13;
+var ENTER_KEYCODE = 27;
 
 var getRandomElement = function (wizards) {
   var randomIndex = Math.floor(Math.random() * wizards.length);
@@ -41,7 +43,7 @@ var modalWindow = document.querySelector('.setup');
 
 
 getSetupSimilarList().classList.remove('hidden');
-modalWindow.classList.remove('hidden');
+// modalWindow.classList.remove('hidden');
 
 var createRandomWizardLook = function (wizardsArray) {
   var similarCharacters = function () {
@@ -79,6 +81,8 @@ var createRandomWizardLook = function (wizardsArray) {
 
 createRandomWizardLook(wizards);
 
+// Events
+
 var getSetupOpenWindow = function () {
   return document.querySelector('.setup-open');
 };
@@ -87,24 +91,19 @@ var getSetupCloseWindow = function () {
   return modalWindow.querySelector('.setup-close');
 };
 
-var getGameIcon = function () {
-  return document.querySelector('.setup-open-icon');
-};
+getSetupOpenWindow().addEventListener('click', function () {
+  modalWindow.classList.remove('hidden');
+});
 
 getSetupCloseWindow().addEventListener('click', function () {
   modalWindow.classList.add('hidden');
 });
 
-getSetupOpenWindow().addEventListener('click', function () {
-  modalWindow.classList.remove('hidden');
-});
-
 document.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === 27) {
+  if (evt.keyCode === ENTER_KEYCODE) {
     modalWindow.classList.add('hidden');
-  } else if (evt.keyCode === 13) {
+  } else if (evt.keyCode === ESC_KEYCODE) {
     modalWindow.classList.remove('hidden');
   }
 });
 
-getGameIcon().setAttribute('tabindex', 0);
