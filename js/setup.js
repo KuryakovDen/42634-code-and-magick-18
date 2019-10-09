@@ -185,9 +185,6 @@ var wizardWireballClickHandler = function () {
   getSetupWireballColor().style.background = getRandomElement(fireballColors);
 };
 
-
 getColorMainWizardCoat().addEventListener('click', wizardCoatClickHandler);
-
 getSetupMainWizardEyes().addEventListener('click', wizardEyesClickHandler);
-
 getSetupWireballColor().addEventListener('click', wizardWireballClickHandler);
