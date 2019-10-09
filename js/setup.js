@@ -159,10 +159,6 @@ getSetupCloseWindow().addEventListener('keydown', function (evt) {
   }
 });
 
-var getRandomColorCoat = getRandomElement(coatColors);
-var getRandomColorEyes = getRandomElement(eyesColors);
-var getRandomColorWireball = getRandomElement(fireballColors);
-
 var getSetupMainWizard = document.querySelector('.setup-wizard');
 
 var getColorMainWizardCoat = function () {
@@ -177,14 +173,21 @@ var getSetupWireballColor = function () {
   return document.querySelector('.setup-fireball-wrap');
 };
 
-getColorMainWizardCoat().addEventListener('click', function () {
-  getColorMainWizardCoat().style.fill = getRandomColorCoat;
-});
+var wizardCoatClickHandler = function () {
+  getColorMainWizardCoat().style.fill = getRandomElement(coatColors);
+};
 
-getSetupMainWizardEyes().addEventListener('click', function () {
-  getSetupMainWizardEyes().style.fill = getRandomColorEyes;
-});
+var wizardEyesClickHandler = function () {
+  getSetupMainWizardEyes().style.fill = getRandomElement(eyesColors);
+};
 
-getSetupWireballColor().addEventListener('click', function () {
-  getSetupWireballColor().style.background = getRandomColorWireball;
-});
+var wizardWireballClickHandler = function () {
+  getSetupWireballColor().style.background = getRandomElement(fireballColors);
+};
+
+
+getColorMainWizardCoat().addEventListener('click', wizardCoatClickHandler);
+
+getSetupMainWizardEyes().addEventListener('click', wizardEyesClickHandler);
+
+getSetupWireballColor().addEventListener('click', wizardWireballClickHandler);
