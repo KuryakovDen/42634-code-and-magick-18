@@ -91,18 +91,52 @@
   };
 
   var wizardCoatClickHandler = function () {
-    getColorMainWizardCoat().style.fill = getRandomElement(coatColors);
+    getColorMainWizardCoat().style.fill = window.setup.getRandomElement(window.setup.coatColors);
   };
 
   var wizardEyesClickHandler = function () {
-    getSetupMainWizardEyes().style.fill = getRandomElement(eyesColors);
+    getSetupMainWizardEyes().style.fill = window.setup.getRandomElement(window.setup.eyesColors);
   };
 
   var wizardWireballClickHandler = function () {
-    getSetupWireballColor().style.background = getRandomElement(fireballColors);
+    getSetupWireballColor().style.background = window.setup.getRandomElement(fireballColors);
   };
 
   getColorMainWizardCoat().addEventListener('click', wizardCoatClickHandler);
   getSetupMainWizardEyes().addEventListener('click', wizardEyesClickHandler);
   getSetupWireballColor().addEventListener('click', wizardWireballClickHandler);
+
+  var dialogLabel = function () {
+    return modalWindow.querySelector('.upload');
+  };
+
+  dialogLabel().addEventListener('mousedown', function (evt) {
+    evt.preventDefault();
+
+    var startCoords = {
+      x: evt.clientX,
+      y: evt.clientY
+    };
+
+    var mouseMoveHandler = function (moveEvt) {
+      moveEvt.preventDefault();
+
+      var shift = {
+        x: startCoords.x - moveEvt.clientX,
+        y: startCoords.y - moveEvt.clientY
+      };
+
+      startCoords = {
+        x: moveEvt.clientX,
+        y: moveEvt.clientY
+      };
+
+      modalWindow.style.top = (modalWindow.offsetTop - shift.y) + 'px';
+      modalWindow.style.left = (modalWindow.offsetLeft - shift.x) + 'px';
+    };
+
+    document.addEventListener('mousemove', mouseMoveHandler);
+    document.addEventListener('mouseup', mouseMoveHandler);
+  });
+
 })();

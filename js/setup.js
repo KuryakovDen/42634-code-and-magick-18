@@ -1,20 +1,22 @@
 'use strict';
 
 (function () {
-  var wizardNames = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
-  var wizardLastnames = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
-  var coatColors = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
-  var eyesColors = ['black', 'red', 'blue', 'yellow', 'green'];
+  window.setup = {
+    getRandomElement: function (wizards) {
+      var randomIndex = Math.floor(Math.random() * wizards.length);
+      return wizards[randomIndex];
+    },
 
-  var countOfWizards = 4;
-
-  var getRandomElement = function (wizards) {
-    var randomIndex = Math.floor(Math.random() * wizards.length);
-    return wizards[randomIndex];
+    coatColors: ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'],
+    eyesColors: ['black', 'red', 'blue', 'yellow', 'green']
   };
 
+  var wizardNames = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
+  var wizardLastnames = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
+  var countOfWizards = 4;
+
   var getRandomFullname = function (wizardName, wizardLastname) {
-    return getRandomElement(wizardName) + ' ' + getRandomElement(wizardLastname);
+    return window.setup.getRandomElement(wizardName) + ' ' + window.setup.getRandomElement(wizardLastname);
   };
 
   var createRandomWizards = function (wizardsCount) {
@@ -23,8 +25,8 @@
     for (var i = 0; i < wizardsCount; i++) {
       randomWizards.push({
         name: getRandomFullname(wizardNames, wizardLastnames),
-        coatColor: getRandomElement(coatColors),
-        eyesColor: getRandomElement(eyesColors)
+        coatColor: window.setup.getRandomElement(window.setup.coatColors),
+        eyesColor: window.setup.getRandomElement(window.setup.eyesColors)
       });
     }
 
