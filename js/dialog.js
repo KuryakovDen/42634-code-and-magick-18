@@ -1,109 +1,108 @@
-var modalWindow = document.querySelector('.setup');
+'use strict';
 
-var getSetupUserName = function () {
-  return modalWindow.querySelector('.setup-user-name');
-};
+(function () {
+  var fireballColors = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
 
-var getSetupOpenWindow = function () {
-  return document.querySelector('.setup-open');
-};
+  var modalWindow = document.querySelector('.setup');
 
-var getSetupCloseWindow = function () {
-  return modalWindow.querySelector('.setup-close');
-};
+  var getSetupUserName = function () {
+    return modalWindow.querySelector('.setup-user-name');
+  };
 
-var popupEscHandler = function (evt) {
-  if (evt.keyCode === ESC_KEYCODE) {
-    closePopup();
-  }
-};
+  var getSetupOpenWindow = function () {
+    return document.querySelector('.setup-open');
+  };
 
-var openPopup = function () {
-  modalWindow.classList.remove('hidden');
+  var getSetupCloseWindow = function () {
+    return modalWindow.querySelector('.setup-close');
+  };
 
-  document.addEventListener('keydown', popupEscHandler);
-};
+  var popupEscHandler = function (evt) {
+    window.util.escEvent(evt, closePopup);
+  };
 
-var closePopup = function () {
-  modalWindow.classList.add('hidden');
-};
+  var openPopup = function () {
+    modalWindow.classList.remove('hidden');
 
-var inputValidityHandler = function (validityParam) {
-  validityParam = getSetupUserName().validity;
-  var message = '';
+    document.addEventListener('keydown', popupEscHandler);
+  };
 
-  if (validityParam.tooShort) {
-    message = 'Имя персонажа не должно быть короче 2 символов!';
-  } else if (validityParam.tooLong) {
-    message = 'Имя персонажа не должно быть длиннее 25 символов!';
-  } else if (validityParam.valueMissing) {
-    message = 'Это поле обязательно для заполнения!';
-  } else {
-    message = '';
-  }
+  var closePopup = function () {
+    modalWindow.classList.add('hidden');
+  };
 
-  return getSetupUserName().setCustomValidity(message);
-};
+  var inputValidityHandler = function (validityParam) {
+    validityParam = getSetupUserName().validity;
+    var message = '';
 
-var inputSmallLengthValidityHandler = function (evt) {
-  var target = evt.target;
-  if (target.value.length < 2) {
-    target.setCustomValidity('Имя персонажа не должно быть короче 2 символов!');
-  } else {
-    target.setCustomValidity('');
-  }
-};
+    if (validityParam.tooShort) {
+      message = 'Имя персонажа не должно быть короче 2 символов!';
+    } else if (validityParam.tooLong) {
+      message = 'Имя персонажа не должно быть длиннее 25 символов!';
+    } else if (validityParam.valueMissing) {
+      message = 'Это поле обязательно для заполнения!';
+    } else {
+      message = '';
+    }
 
-getSetupUserName().addEventListener('invalid', inputValidityHandler);
-getSetupUserName().addEventListener('input', inputSmallLengthValidityHandler);
+    return getSetupUserName().setCustomValidity(message);
+  };
 
-getSetupOpenWindow().addEventListener('click', function () {
-  openPopup();
-});
+  var inputSmallLengthValidityHandler = function (evt) {
+    var target = evt.target;
+    if (target.value.length < 2) {
+      target.setCustomValidity('Имя персонажа не должно быть короче 2 символов!');
+    } else {
+      target.setCustomValidity('');
+    }
+  };
 
-getSetupOpenWindow().addEventListener('keydown', function (evt) {
-  if (evt.keyCode === ENTER_KEYCODE) {
+  getSetupUserName().addEventListener('invalid', inputValidityHandler);
+  getSetupUserName().addEventListener('input', inputSmallLengthValidityHandler);
+
+  getSetupOpenWindow().addEventListener('click', function () {
     openPopup();
-  }
-});
+  });
 
-getSetupCloseWindow().addEventListener('click', function () {
-  closePopup();
-});
+  getSetupOpenWindow().addEventListener('keydown', function (evt) {
+    window.util.enterEvent(evt, openPopup);
+  });
 
-getSetupCloseWindow().addEventListener('keydown', function (evt) {
-  if (evt.keyCode === ENTER_KEYCODE) {
+  getSetupCloseWindow().addEventListener('click', function () {
     closePopup();
-  }
-});
+  });
 
-var getSetupMainWizard = document.querySelector('.setup-wizard');
+  getSetupCloseWindow().addEventListener('keydown', function (evt) {
+    window.util.enterEvent(evt, closePopup);
+  });
 
-var getColorMainWizardCoat = function () {
-  return getSetupMainWizard.querySelector('.wizard-coat');
-};
+  var getSetupMainWizard = document.querySelector('.setup-wizard');
 
-var getSetupMainWizardEyes = function () {
-  return getSetupMainWizard.querySelector('.wizard-eyes');
-};
+  var getColorMainWizardCoat = function () {
+    return getSetupMainWizard.querySelector('.wizard-coat');
+  };
 
-var getSetupWireballColor = function () {
-  return document.querySelector('.setup-fireball-wrap');
-};
+  var getSetupMainWizardEyes = function () {
+    return getSetupMainWizard.querySelector('.wizard-eyes');
+  };
 
-var wizardCoatClickHandler = function () {
-  getColorMainWizardCoat().style.fill = getRandomElement(coatColors);
-};
+  var getSetupWireballColor = function () {
+    return document.querySelector('.setup-fireball-wrap');
+  };
 
-var wizardEyesClickHandler = function () {
-  getSetupMainWizardEyes().style.fill = getRandomElement(eyesColors);
-};
+  var wizardCoatClickHandler = function () {
+    getColorMainWizardCoat().style.fill = getRandomElement(coatColors);
+  };
 
-var wizardWireballClickHandler = function () {
-  getSetupWireballColor().style.background = getRandomElement(fireballColors);
-};
+  var wizardEyesClickHandler = function () {
+    getSetupMainWizardEyes().style.fill = getRandomElement(eyesColors);
+  };
 
-getColorMainWizardCoat().addEventListener('click', wizardCoatClickHandler);
-getSetupMainWizardEyes().addEventListener('click', wizardEyesClickHandler);
-getSetupWireballColor().addEventListener('click', wizardWireballClickHandler);
+  var wizardWireballClickHandler = function () {
+    getSetupWireballColor().style.background = getRandomElement(fireballColors);
+  };
 
+  getColorMainWizardCoat().addEventListener('click', wizardCoatClickHandler);
+  getSetupMainWizardEyes().addEventListener('click', wizardEyesClickHandler);
+  getSetupWireballColor().addEventListener('click', wizardWireballClickHandler);
+})();
