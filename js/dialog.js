@@ -118,8 +118,11 @@
       y: evt.clientY
     };
 
+    var dragged = false;
+
     var mouseMoveHandler = function (moveEvt) {
       moveEvt.preventDefault();
+      dragged = true;
 
       var shift = {
         x: startCoords.x - moveEvt.clientX,
@@ -135,8 +138,23 @@
       modalWindow.style.left = (modalWindow.offsetLeft - shift.x) + 'px';
     };
 
-    document.addEventListener('mousemove', mouseMoveHandler);
-    document.addEventListener('mouseup', mouseMoveHandler);
-  });
+    var mouseUpHandler = function (upEvt) {
+      upEvt.preventDefault();
 
+      document.removeEventListener('mousemove', mouseMoveHandler);
+      document.removeEventListener('mouseup', mouseUpHandler);
+
+      if (dragged) {
+        var clickPreventDefaultHandler = function (clickEvt) {
+          clickEvt.preventDefault();
+          dialogLabel().removeEventListener('click', clickPreventDefaultHandler);
+        };
+
+        dialogLabel().addEventListener('click', clickPreventDefaultHandler);
+      }
+    };
+
+    document.addEventListener('mousemove', mouseMoveHandler);
+    document.addEventListener('mouseup', mouseUpHandler);
+  });
 })();
