@@ -2,11 +2,6 @@
 
 (function () {
   window.setup = {
-    getRandomElement: function (wizards) {
-      var randomIndex = Math.floor(Math.random() * wizards.length);
-      return wizards[randomIndex];
-    },
-
     coatColors: ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'],
     eyesColors: ['black', 'red', 'blue', 'yellow', 'green']
   };
@@ -16,7 +11,7 @@
   var countOfWizards = 4;
 
   var getRandomFullname = function (wizardName, wizardLastname) {
-    return window.setup.getRandomElement(wizardName) + ' ' + window.setup.getRandomElement(wizardLastname);
+    return window.util.getRandomElement(wizardName) + ' ' + window.util.getRandomElement(wizardLastname);
   };
 
   var createRandomWizards = function (wizardsCount) {
@@ -25,8 +20,8 @@
     for (var i = 0; i < wizardsCount; i++) {
       randomWizards.push({
         name: getRandomFullname(wizardNames, wizardLastnames),
-        coatColor: window.setup.getRandomElement(window.setup.coatColors),
-        eyesColor: window.setup.getRandomElement(window.setup.eyesColors)
+        coatColor: window.util.getRandomElement(window.setup.coatColors),
+        eyesColor: window.util.getRandomElement(window.setup.eyesColors)
       });
     }
 

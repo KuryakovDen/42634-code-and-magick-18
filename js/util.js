@@ -15,6 +15,11 @@
       if (evt.keyCode === ENTER_KEYCODE) {
         action();
       }
+    },
+
+    getRandomElement: function (wizards) {
+      var randomIndex = Math.floor(Math.random() * wizards.length);
+      return wizards[randomIndex];
     }
   };
 })();
