@@ -26,4 +26,14 @@
     xhr.open('GET', url);
     xhr.send();
   };
+
+  var onError = function (message) {
+    console.error(message);
+  };
+
+  var onLoad = function (data) {
+    console.log(data);
+  };
+
+  window.load('https://up.htmlacademy.ru/assets/javascript/demo/8-xhr/data.json', onLoad, onError);
 })();

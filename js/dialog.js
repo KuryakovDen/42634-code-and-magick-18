@@ -75,14 +75,4 @@
   getSetupCloseWindow().addEventListener('keydown', function (evt) {
     window.util.enterEvent(evt, closePopup);
   });
-
-  var onError = function (message) {
-    console.error(message);
-  };
-
-  var onLoad = function (data) {
-    console.log(data);
-  };
-
-  window.load('https://up.htmlacademy.ru/assets/javascript/demo/8-xhr/data.json', onLoad, onError);
 })();
