@@ -14,29 +14,31 @@
     return window.util.getRandomElement(wizardName) + ' ' + window.util.getRandomElement(wizardLastname);
   };
 
-  var createRandomWizards = function (wizardsCount) {
-    var randomWizards = [];
-
-    for (var i = 0; i < wizardsCount; i++) {
-      randomWizards.push({
-        name: getRandomFullname(wizardNames, wizardLastnames),
-        coatColor: window.util.getRandomElement(window.setup.coatColors),
-        eyesColor: window.util.getRandomElement(window.setup.eyesColors)
-      });
-    }
-
-    return randomWizards;
-  };
-
-  var wizards = createRandomWizards(countOfWizards);
-
   var getSetupSimilarList = function () {
     return document.querySelector('.setup-similar');
   };
 
   getSetupSimilarList().classList.remove('hidden');
 
-  var createRandomWizardLook = function (wizardsArray) {
+
+  var getWizardForm = function () {
+    return document.querySelector('.setup-wizard-form');
+  };
+
+  var onSaveSuccessLoad = function () {
+    window.dialog.modalWindow.classList.add('hidden');
+  };
+
+  var onErrorLoad = function (message) {
+    console.error(message);
+  };
+
+  getWizardForm().addEventListener('submit', function (evt) {
+    window.save('https://js.dump.academy/code-and-magick', new FormData(getWizardForm()), onSaveSuccessLoad, onErrorLoad);
+    evt.preventDefault();
+  });
+
+  var onLoadSuccess = function (wizardsArray) {
     var similarCharacters = function () {
       return document.querySelector('.setup-similar-list');
     };
@@ -68,24 +70,7 @@
     }
 
     return wizardsArray;
-  };
+  }
 
-  createRandomWizardLook(wizards);
-
-  var getWizardForm = function () {
-    return document.querySelector('.setup-wizard-form');
-  };
-
-  var onSaveSuccessLoad = function () {
-    window.dialog.modalWindow.classList.add('hidden');
-  };
-
-  var onSaveErrorLoad = function (message) {
-    console.error(message);
-  };
-
-  getWizardForm().addEventListener('submit', function (evt) {
-    window.save('https://js.dump.academy/code-and-magick', new FormData(getWizardForm()), onSaveSuccessLoad, onSaveErrorLoad);
-    evt.preventDefault();
-  });
+  window.load('https://js.dump.academy/code-and-magick/data', onLoadSuccess, onErrorLoad);
 })();

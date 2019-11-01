@@ -31,6 +31,8 @@
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
 
+    xhr.open('GET', url);
+
     xhr.addEventListener('load', function () {
       if (xhr.status === 200) {
         onSuccess(xhr.response);
@@ -49,7 +51,6 @@
 
     xhr.timeout = 5000;
 
-    xhr.open('GET', url);
     xhr.send();
   };
 })();
