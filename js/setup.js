@@ -76,11 +76,16 @@
     return document.querySelector('.setup-wizard-form');
   };
 
+  var onSaveSuccessLoad = function () {
+    window.dialog.modalWindow.classList.add('hidden');
+  };
+
+  var onSaveErrorLoad = function (message) {
+    console.error(message);
+  };
+
   getWizardForm().addEventListener('submit', function (evt) {
-    window.load('https://js.dump.academy/code-and-magick', new FormData(getWizardForm()), function () {
-      window.dialog.modalWindow.classList.add('hidden');
-    });
+    window.save('https://js.dump.academy/code-and-magick', new FormData(getWizardForm()), onSaveSuccessLoad, onSaveErrorLoad);
     evt.preventDefault();
   });
-
 })();
