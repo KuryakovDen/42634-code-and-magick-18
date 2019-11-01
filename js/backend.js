@@ -14,7 +14,7 @@
     });
 
     xhr.addEventListener('error', function () {
-      onError('Произошла ошибка соединеия ');
+      onError('Произошла ошибка соединения');
     });
 
     xhr.addEventListener('timeout', function () {
@@ -42,7 +42,7 @@
     });
 
     xhr.addEventListener('error', function () {
-      onError('Произошла ошибка соединеия ');
+      onError('Произошла ошибка соединения');
     });
 
     xhr.addEventListener('timeout', function () {

@@ -6,13 +6,7 @@
     eyesColors: ['black', 'red', 'blue', 'yellow', 'green']
   };
 
-  var wizardNames = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
-  var wizardLastnames = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
-  var countOfWizards = 4;
-
-  var getRandomFullname = function (wizardName, wizardLastname) {
-    return window.util.getRandomElement(wizardName) + ' ' + window.util.getRandomElement(wizardLastname);
-  };
+  var countOfWizards = 8;
 
   var getSetupSimilarList = function () {
     return document.querySelector('.setup-similar');
@@ -25,16 +19,25 @@
     return document.querySelector('.setup-wizard-form');
   };
 
-  var onSaveSuccessLoad = function () {
+  var onSaveSuccess = function () {
     window.dialog.modalWindow.classList.add('hidden');
   };
 
-  var onErrorLoad = function (message) {
-    console.error(message);
+  var onSaveError = function (errorMessage) {
+    var node = document.createElement('div');
+    node.style.position = 'absolute';
+    node.style = 'z-index: 20; background: red; margin: 0 auto; color: white; text-align: center; font-weight: bold';
+    node.style.top = '100px';
+    node.style.fontSize = '30px';
+    node.style.left = 0;
+    node.style.right = 0;
+
+    node.textContent = errorMessage;
+    document.body.insertAdjacentElement('afterbegin', node);
   };
 
   getWizardForm().addEventListener('submit', function (evt) {
-    window.save('https://js.dump.academy/code-and-magick', new FormData(getWizardForm()), onSaveSuccessLoad, onErrorLoad);
+    window.save('https://js.dump.academy/code-and-magick', new FormData(getWizardForm()), onSaveSuccess, onSaveError);
     evt.preventDefault();
   });
 
@@ -47,7 +50,7 @@
       return document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
     };
 
-    for (var i = 0; i < wizardsArray.length; i++) {
+    for (var i = 4; i < countOfWizards; i++) {
       var wizardElement = similarWirardTemplate().cloneNode(true);
 
       var getSetupSimilarLabel = function () {
@@ -63,14 +66,27 @@
       };
 
       getSetupSimilarLabel().textContent = wizardsArray[i].name;
-      getColorWizardCoat().style.fill = wizardsArray[i].coatColor;
-      getSetupWizardEyes().style.fill = wizardsArray[i].eyesColor;
+      getColorWizardCoat().style.fill = wizardsArray[i].colorCoat;
+      getSetupWizardEyes().style.fill = wizardsArray[i].colorEyes;
 
       similarCharacters().appendChild(wizardElement);
     }
 
     return wizardsArray;
-  }
+  };
+
+  var onErrorLoad = function (errorMessage) {
+    var node = document.createElement('div');
+    node.style.position = 'absolute';
+    node.style = 'z-index: 20; background: red; margin: 0 auto; color: white; text-align: center; font-weight: bold';
+    node.style.top = '100px';
+    node.style.fontSize = '30px';
+    node.style.left = 0;
+    node.style.right = 0;
+
+    node.textContent = errorMessage;
+    document.body.insertAdjacentElement('afterbegin', node);
+  };
 
   window.load('https://js.dump.academy/code-and-magick/data', onLoadSuccess, onErrorLoad);
 })();
