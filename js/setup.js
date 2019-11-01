@@ -71,4 +71,16 @@
   };
 
   createRandomWizardLook(wizards);
+
+  var getWizardForm = function () {
+    return document.querySelector('.setup-wizard-form');
+  };
+
+  getWizardForm().addEventListener('submit', function (evt) {
+    window.load('https://js.dump.academy/code-and-magick', new FormData(getWizardForm()), function () {
+      window.dialog.modalWindow.classList.add('hidden');
+    });
+    evt.preventDefault();
+  });
+
 })();
